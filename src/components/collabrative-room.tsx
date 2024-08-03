@@ -10,7 +10,7 @@ import { Input } from './ui/input';
 import Image from 'next/image';
 import { updateDocument } from '@/lib/actions/room.action';
 
-const CollabrativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
+const CollabrativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
 
     const [editing, setEditing] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -36,7 +36,6 @@ const CollabrativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
             setLoading(false);
         }
     }
-    const currentUserType = "editor";
 
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
@@ -100,7 +99,7 @@ const CollabrativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
                             </SignedIn>
                         </div>
                     </Header>
-                    {/* <Editor /> */}
+                    <Editor roomId={roomId} currentUserType={currentUserType} />
                 </div>
             </ClientSideSuspense>
         </RoomProvider>
