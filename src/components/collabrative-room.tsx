@@ -9,6 +9,7 @@ import ActiveCollaborators from './active-collaborator';
 import { Input } from './ui/input';
 import Image from 'next/image';
 import { updateDocument } from '@/lib/actions/room.action';
+import ShareModel from './share-modal';
 
 const CollabrativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
 
@@ -91,6 +92,7 @@ const CollabrativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Coll
                         </div>
                         <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
                             <ActiveCollaborators />
+                            <ShareModel />
                             <SignedOut>
                                 <SignInButton />
                             </SignedOut>
