@@ -1,15 +1,15 @@
-import AddDocumentBtn from "@/components/add-document-btn";
-import Header from "@/components/Header";
-import { getDocuments } from "@/lib/actions/room.action";
-import { dateConverter } from "@/lib/utils";
-import { SignedIn, UserButton } from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import AddDocumentBtn from '@/components/add-document-btn';
+import Header from '@/components/Header'
+import { Button } from '@/components/ui/button'
+import { getDocuments } from '@/lib/actions/room.action';
+import { dateConverter } from '@/lib/utils';
+import { SignedIn, UserButton } from '@clerk/nextjs'
+import { currentUser } from '@clerk/nextjs/server';
+import Image from 'next/image';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
-export default async function Home() {
-
+const Home = async () => {
   const clerkUser = await currentUser();
   if (!clerkUser) redirect('/sign-in');
 
@@ -19,7 +19,7 @@ export default async function Home() {
     <main className="home-container">
       <Header className="sticky left-0 top-0">
         <div className="flex items-center gap-2 lg:gap-4">
-          Notification
+          <p>Notification</p>
           <SignedIn>
             <UserButton />
           </SignedIn>
@@ -29,9 +29,7 @@ export default async function Home() {
       {roomDocuments.data.length > 0 ? (
         <div className="document-list-container">
           <div className="document-list-title">
-            <h3 className="text-28-semibold">
-              All Documents
-            </h3>
+            <h3 className="text-28-semibold">All documents</h3>
             <AddDocumentBtn
               userId={clerkUser.id}
               email={clerkUser.emailAddresses[0].emailAddress}
@@ -42,29 +40,41 @@ export default async function Home() {
               <li key={id} className="document-list-item">
                 <Link href={`/documents/${id}`} className="flex flex-1 items-center gap-4">
                   <div className="hidden rounded-md bg-dark-500 p-2 sm:block">
-                    <Image src="/assets/icons/doc.svg" alt="file"
+                    <Image
+                      src="/assets/icons/doc.svg"
+                      alt="file"
                       width={40}
-                      height={40} />
+                      height={40}
+                    />
                   </div>
                   <div className="space-y-1">
-                  <p className="line-clamp-1 text-lg">{metadata.title}</p>
-                  <p className="text-sm font-light text-blue-100">Created about {dateConverter(createdAt)}</p>
+                    <p className="line-clamp-1 text-lg">{metadata.title}</p>
+                    <p className="text-sm font-light text-blue-100">Created about {dateConverter(createdAt)}</p>
                   </div>
                 </Link>
+                {/* <DeleteModal roomId={id} /> */}
               </li>
             ))}
           </ul>
         </div>
       ) : (
         <div className="document-list-empty">
-          <Image src="/assets/icons/doc.svg"
+          <Image
+            src="/assets/icons/doc.svg"
             alt="Document"
             width={40}
             height={40}
-            className="mx-auto" />
-          <AddDocumentBtn userId={clerkUser.id} email={clerkUser.emailAddresses[0].emailAddress} />
+            className="mx-auto"
+          />
+
+          <AddDocumentBtn
+            userId={clerkUser.id}
+            email={clerkUser.emailAddresses[0].emailAddress}
+          />
         </div>
       )}
     </main>
-  );
+  )
 }
+
+export default Home
