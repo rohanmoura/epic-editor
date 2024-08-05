@@ -1,6 +1,7 @@
 import AddDocumentBtn from '@/components/add-document-btn';
 import { DeleteModal } from '@/components/delete-modal';
 import Header from '@/components/Header'
+import Notification from '@/components/notification';
 import { Button } from '@/components/ui/button'
 import { getDocuments } from '@/lib/actions/room.action';
 import { dateConverter } from '@/lib/utils';
@@ -20,7 +21,7 @@ const Home = async () => {
     <main className="home-container">
       <Header className="sticky left-0 top-0">
         <div className="flex items-center gap-2 lg:gap-4">
-          <p>Notification</p>
+          <Notification />
           <SignedIn>
             <UserButton />
           </SignedIn>
